@@ -63,7 +63,7 @@ def logIn():
     enter.pack(pady=20)
     success = Label(logInScreen, text="")
     success.pack(pady=20)
-
+    # TODO add sign up options
     logInScreen.mainloop()
 
 
