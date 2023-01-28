@@ -17,7 +17,7 @@ logo = Label(root, image= logoImage, bg="#9F649D")
 logo.place(x=17.5,y=9.17, w=27.5, h=24)
 
 #search bar
-
+# TODO fix this custom search bar
 def check(event):
     print(root.focus_get(), event.widget)
     if event.widget != search:
@@ -46,7 +46,7 @@ def logInEntry():
         success.config(text="Try again.")
 
 def logIn():
-    
+    # TODO make this have the same visual stlye as the rest of the app
     global usernameInput
     global passwordInput
     global success
