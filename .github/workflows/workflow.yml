@@ -1,5 +1,6 @@
 name: "Run TODO to Issue"
 on: push
+runs-on: windows-latest
 jobs:
     build:
         steps:
