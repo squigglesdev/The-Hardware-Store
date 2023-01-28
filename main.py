@@ -71,7 +71,7 @@ loginImage = PhotoImage(file="login.png")
 login = Button(root, image=loginImage, bg="#9F649D", relief=FLAT, bd=0, command=logIn)
 login.place(x=707.5, y=8.33, w=75, h=25)
 
-
+# BUG test
 
 
 root.mainloop()
