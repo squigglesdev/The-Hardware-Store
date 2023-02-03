@@ -84,7 +84,6 @@ def logIn():
 
 
 
-    # TODO add sign up options
     titleSignUp = Label(logInScreen, text="Sign up")
     titleSignUp.grid(row=0, column=4, sticky=W, pady=2, padx=5)
     usernameLabelSignUp = Label(logInScreen, text="Username:")
