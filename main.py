@@ -141,6 +141,7 @@ def rootScreen():
         login.place(x=707.5, y=8.33, w=75, h=25)
         Label(text="Please log in.", bg="white").place(x=31.25, y=123.75)
     else:
+        Label(text=f"Welcome to the Hardware Store, {username}!", bg="white").place(x=31.25, y=123.75)
         logOutImage = PhotoImage(file="logout.png")
         logout = Button(root, image=logOutImage, bg="#9F649D", relief=FLAT, bd=0, command=logOut)
         logout.place(x=707.5, y=8.33, w=75, h=25)
