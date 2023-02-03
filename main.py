@@ -1,21 +1,9 @@
 import loginwithgui
 from tkinter import *
+import cart
+from item import *
 
-#window
-root = Tk()
-root.geometry("850x450")
-root.resizable(False, False)
-root.title(" Hardware Store")
-
-#top bar
-topbar = Label(root, bg="#9F649D")
-topbar.place(x=0, y=0, w=850, h=42)
-
-#logo
-logoImage = PhotoImage(file="HS.png")
-logo = Label(root, image= logoImage, bg="#9F649D")
-logo.place(x=17.5,y=9.17, w=27.5, h=24)
-
+username = None
 #search bar
 # TODO fix this custom search bar
 def check(event):
@@ -30,30 +18,42 @@ def searchentry():
     search = Entry(root, bd=0, font="Inter", bg="white")
     search.place(x=163, y=15, w=475, h=12)
     search.bind('<FocusOut>', check)
-searchImage = PhotoImage(file="unActiveSearch.png")
-searchBar = Button(root, image=searchImage, bg="#9F649D", relief=FLAT, bd=0, command=searchentry)
-searchBar.place(x=159.17, y=8.33, w=481.67, h=25)
+
 
 
 #log in button
 def logInEntry():
     global username
     username = loginwithgui.login("B", "A", "A", "A", "A", "A", "A", usernameInput.get(), passwordInput.get(), "A")
+    print(username)
     if username != None:
         success.config(text="Success!")
-        logInScreen.after(360, logInScreen.destroy)
+        root.destroy()
+        rootScreen()
     else:
         success.config(text="Try again.")
+    
 def signUpEntry():
     global username
-    username = loginwithgui.login("A", "A", emailInputSignUp.get(), "A", "A", "A", nameInputSignUp.get(), usernameInputSignUp.get(), passwordInputSignUp.get(), "A")
+    global logout
+    global logOutImage
+    username = loginwithgui.login("A", "A", emailInputSignUp.get(), "Y", "A", "A", nameInputSignUp.get(), usernameInputSignUp.get(), passwordInputSignUp.get(), passwordInputSignUp.get())
     if username != None:
         success.config(text="Success!")
-        logInScreen.after(360, logInScreen.destroy)
+        root.destroy()
+        rootScreen()
     else:
         success.config(text="Try again.")
 
+def logOut():
+    global username
+    username = None
+    root.destroy()
+    rootScreen()
+
 def logIn():
+    global logout
+    global logOutImage
     # TODO make this have the same visual stlye as the rest of the app
     global usernameInput
     global passwordInput
@@ -107,12 +107,52 @@ def logIn():
     signUpBttn.grid(row=5, column=4, sticky=W, pady=2, padx=5)
     logInScreen.mainloop()
 
+def rootScreen():
+    global root
 
-loginImage = PhotoImage(file="login.png")
-login = Button(root, image=loginImage, bg="#9F649D", relief=FLAT, bd=0, command=logIn)
-login.place(x=707.5, y=8.33, w=75, h=25)
+    try:
+        logInScreen.destroy()
+    except:
+        pass
+    #window
+    root = Tk()
+    root.geometry("850x450")
+    root.resizable(False, False)
+    root.title(" Hardware Store")
+    root.config(bg="white")
 
-root.mainloop()
+    #top bar
+    topbar = Label(root, bg="#9F649D")
+    topbar.place(x=0, y=0, w=850, h=42)
+
+    #logo
+    logoImage = PhotoImage(file="HS.png")
+    logo = Label(root, image= logoImage, bg="#9F649D")
+    logo.place(x=17.5,y=9.17, w=27.5, h=24)
+
+
+    searchImage = PhotoImage(file="unActiveSearch.png")
+    searchBar = Button(root, image=searchImage, bg="#9F649D", relief=FLAT, bd=0, command=searchentry)
+    searchBar.place(x=159.17, y=8.33, w=481.67, h=25)
+    print(username)
+    if username == None:
+        loginImage = PhotoImage(file="login.png")
+        login = Button(root, image=loginImage, bg="#9F649D", relief=FLAT, bd=0, command=logIn)
+        login.place(x=707.5, y=8.33, w=75, h=25)
+        Label(text="Please log in.", bg="white").place(x=31.25, y=123.75)
+    else:
+        logOutImage = PhotoImage(file="logout.png")
+        logout = Button(root, image=logOutImage, bg="#9F649D", relief=FLAT, bd=0, command=logOut)
+        logout.place(x=707.5, y=8.33, w=75, h=25)
+        basketImage = PhotoImage(file= "basket.png")
+        basket = Button(root, image=basketImage, bg="#9F649D", relief=FLAT, bd=0, command=cart.show)
+        basket.place(x=787.5, y=8.33, w=25, h=25)
+        hammer = Item(root, "Hammer", "A basic hammer. Nothing special.", "Builder's Equipment")
+    
+    
+
+    root.mainloop()
+rootScreen()
 
 #user = login.login()
 #print(f"Welcome to the Hardware Store, {user}!")
